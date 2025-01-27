@@ -1,7 +1,10 @@
 package es.iesra.prog2425_ahorcado
 
 fun main() {
-    val palabras = Palabra.generarPalabras(cantidad = 10, tamanioMin = 7, tamanioMax = 7, idioma = Idioma.ES)
+    /*val palabras = Palabra.generarPalabras(cantidad = 10, tamanioMin = 7, tamanioMax = 7, idioma = Idioma.ES, soloConTildes = true)*/
+    val palabras = mutableSetOf<Palabra>(Palabra("áéíóúaeiou"))
+
+
     var seguirJugando: Boolean
     do {
         val palabraOculta = palabras.pop()

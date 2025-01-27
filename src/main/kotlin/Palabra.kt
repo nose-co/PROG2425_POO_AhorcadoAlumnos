@@ -10,7 +10,8 @@ import kotlinx.coroutines.runBlocking
 class Palabra(val palabraOculta: String) {
     private val progreso = CharArray(palabraOculta.length) { '_' }
 
-    fun revelarLetra(letra: Char): Boolean {
+    /*
+    fun revelarLetraV1(letra: Char): Boolean {
         var encontrada = false
         for (i in palabraOculta.indices) {
             if (palabraOculta[i] == letra) {
@@ -18,6 +19,23 @@ class Palabra(val palabraOculta: String) {
                 encontrada = true
             }
         }
+        return encontrada
+    }
+    */
+
+    fun revelarLetra(letra: Char): Boolean {
+        val letraSinAcento = letra.quitarAcentos()
+        var encontrada = false
+
+        for (i in palabraOculta.indices) {
+
+            if (palabraOculta[i].quitarAcentos() == letraSinAcento) {
+                encontrada = true
+                progreso[i] = palabraOculta[i]
+            }
+
+        }
+
         return encontrada
     }
 
@@ -34,7 +52,13 @@ class Palabra(val palabraOculta: String) {
     }
 
     companion object {
-        fun generarPalabras(cantidad: Int, tamanioMin: Int, tamanioMax: Int, idioma: Idioma = Idioma.ES): MutableSet<Palabra> {
+        fun generarPalabras(
+            cantidad: Int,
+            tamanioMin: Int,
+            tamanioMax: Int,
+            idioma: Idioma = Idioma.ES,
+            soloConTildes: Boolean = false
+        ): MutableSet<Palabra> {
             val client = HttpClient {
                 install(ContentNegotiation) {
                     gson()
@@ -47,6 +71,7 @@ class Palabra(val palabraOculta: String) {
             } else {
                 "^[a-z]+$"
             }
+
             runBlocking {
                 try {
                     while (palabras.size < cantidad) {
@@ -56,7 +81,9 @@ class Palabra(val palabraOculta: String) {
                             .filter { it.length in tamanioMin..tamanioMax }
                             .filter { it.matches(Regex(patron)) }
                             .filter { !it.contains(" ") }
+                            .filter { if (soloConTildes) it.matches(Regex(".*[áéíóúü].*")) else true }
                             .map { Palabra(it) }
+
                         palabras.addAll(filtradas)
                     }
                 } catch (e: Exception) {

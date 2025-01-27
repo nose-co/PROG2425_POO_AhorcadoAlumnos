@@ -6,6 +6,7 @@ class Juego(private val palabra: Palabra, private val jugador: Jugador) {
         println("────────────────────────────────────")
         println("¡Bienvenido al juego del Ahorcado!")
         println("────────────────────────────────────")
+
         println("La palabra tiene ${palabra.obtenerProgreso().filter { it != ' ' }.length} letras.")
 
         while (!palabra.esCompleta() && jugador.obtenerIntentosRestantes() > 0) {
@@ -14,7 +15,7 @@ class Juego(private val palabra: Palabra, private val jugador: Jugador) {
             println("Letras usadas: ${jugador.obtenerLetrasUsadas()}")
 
             print("Introduce una letra: ")
-            val input = readLine()?.trim()?.lowercase()?.firstOrNull()
+            val input = readln().trim().lowercase().firstOrNull()?.quitarAcentos()
 
             if (input == null || !jugador.intentarLetra(input)) {
                 println("Letra no válida o ya utilizada. Intenta otra vez.")
@@ -38,7 +39,7 @@ class Juego(private val palabra: Palabra, private val jugador: Jugador) {
     fun preguntar(msj: String): Boolean {
         do {
             print("$msj (s/n): ")
-            val respuesta = readLine()?.trim()?.lowercase()
+            val respuesta = readln().trim().lowercase()
             when (respuesta) {
                 "s" -> return true
                 "n" -> return false

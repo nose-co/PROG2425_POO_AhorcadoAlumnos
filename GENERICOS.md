@@ -10,13 +10,22 @@ Los genéricos en Kotlin son como **"moldes inteligentes"** que te permiten crea
 - Son una forma de escribir **una sola función, clase o interfaz** que funciona con múltiples tipos de datos.  
 - **Por ejemplo**: Imagina una función que imprime un elemento. Con genéricos, la misma función sirve para imprimir un número, un texto o incluso una clase como `Palabra("hola")`.  
 
-### **Detalle técnico (sencillo)**:  
-- **Definición con `<T>`**: Al escribir `<T>`, le dices a Kotlin: *"Este código funcionará con un tipo de dato `T`, que se decidirá cuando se use"*.  
-  ```kotlin
-  fun <T> imprimirElemento(elemento: T) {
-      println(elemento)
-  }
-  ```  
+# 1. Definición con `<T>`: Funciones Genéricas  
+Cuando escribes `<T>` en una función o clase, le estás diciendo a Kotlin:  
+*"Esta función/clase trabajará con un tipo de dato T, que aún no conozco. Se definirá cuando alguien la use"*.
+
+**Ejemplo concreto:**  
+```kotlin
+fun <T> imprimirElemento(elemento: T) {
+    println(elemento)
+}
+  ```
+
+imprimirElemento(10)        // T es Int
+imprimirElemento("Hola")    // T es String
+imprimirElemento(3.14)      // T es Double
+
+
 - **Seguridad de tipos**: Kotlin verifica en tiempo de compilación que no mezcles tipos incorrectos.  
   - **Ejemplo**: Si creas una lista de números (`List<Int>`), no podrás añadir un texto.  
 

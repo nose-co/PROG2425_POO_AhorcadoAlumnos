@@ -1,3 +1,7 @@
+# GENÉRICOS EN KOTLIN
+
+![¿Qué son los genéricos?](https://i.ytimg.com/vi/iwA5SEusHdA/maxresdefault.jpg)
+
 ## 1. ¿Qué son los genéricos en Kotlin?
 
 Los genéricos en Kotlin son como **"moldes inteligentes"** que te permiten crear código flexible y seguro para trabajar con **cualquier tipo de dato** (números, textos, objetos personalizados, etc.).  

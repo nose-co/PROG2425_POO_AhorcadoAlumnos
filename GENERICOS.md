@@ -44,7 +44,7 @@ Interfaces genéricas: Operaciones que funcionan con cualquier tipo
 
 ## 3. Un ejemplo de cómo se utilizan los genéricos y explicación de este
 
-### Ejemplo 1: Función genérica pop()
+### Ejemplo: Función genérica pop()
 
 ```kotlin
 fun <T> MutableSet<T>.pop(): T? {
